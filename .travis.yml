@@ -8,7 +8,7 @@ before_install:
 script:
   - docker run djamaile/react-test npm test -- --coverage
 
-after_succes:
+after_success:
   - docker build -t djamaile/multi-client ./client
   - docker build -t djamaile/multi-server ./server
   - docker build -t djamaile/multi-nginx ./nginx
