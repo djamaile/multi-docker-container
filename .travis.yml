@@ -1,0 +1,20 @@
+sudo: required
+services: 
+  - docker
+
+before_install:
+  - docker build -t djamaile/react-test -f ./client/dockerfile.dev ./client
+
+script:
+  - docker run djamaile/react-test npm test -- --coverage
+
+after_succes:
+  - docker build -t djamaile/multi-client ./client
+  - docker build -t djamaile/multi-server ./server
+  - docker build -t djamaile/multi-nginx ./nginx
+  - docker build -t djamaile/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push djamaile/multi-client
+  - docker push djamaile/multi-server
+  - docker push djamaile/multi-nginx
+  - docker push djamaile/multi-worker
