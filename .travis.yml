@@ -9,12 +9,12 @@ script:
   - docker run djamaile/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t djamaile/multi-client ./client
-  - docker build -t djamaile/multi-server ./server
-  - docker build -t djamaile/multi-nginx ./nginx
-  - docker build -t djamaile/multi-worker ./worker
+  - docker build -t djam97/multi-client ./client
+  - docker build -t djam97/multi-server ./server
+  - docker build -t djam97/multi-nginx ./nginx
+  - docker build -t djam97/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push djamaile/multi-client
-  - docker push djamaile/multi-server
-  - docker push djamaile/multi-nginx
-  - docker push djamaile/multi-worker
+  - docker push djam97/multi-client
+  - docker push djam97/multi-server
+  - docker push djam97/multi-nginx
+  - docker push djam97/multi-worker
